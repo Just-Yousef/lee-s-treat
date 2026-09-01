@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Lee's Treats Dashboard</title>
+  <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body>
+  <header style="display:flex; align-items:center; justify-content:space-between; padding:16px 24px;">
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="/static/lees_optimized.png" alt="Lee's Treats logo" style="height:32px; width:auto; border-radius:6px;">
+      <h1>Lee's Treats Admin</h1>
+    </div>
+    <div style="flex:1; display:flex; justify-content:flex-end; gap:12px;">
+      <a href="http://localhost:8000" class="btn link">View Store</a>
+      <button id="logoutBtn" class="btn link">Logout</button>
+    </div>
+  </header>
+
+  <main class="admin-home">
+    <h2>Dashboard</h2>
+    <p class="subtitle">Choose what you'd like to manage.</p>
+    <div class="admin-cards">
+      <a href="/orders" class="admin-card">
+        <div class="card-icon">📦</div>
+        <h3>Orders</h3>
+        <p>View and update customer orders</p>
+        <span class="go">Go to Orders →</span>
+      </a>
+      <a href="/menu" class="admin-card">
+        <div class="card-icon">🍕</div>
+        <h3>Menu</h3>
+        <p>Add, edit or delete food items</p>
+        <span class="go">Go to Menu →</span>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/logout', { method: 'POST' });
+      window.location.href = '/login';
+    });
+  </script>
+</body>
+</html>

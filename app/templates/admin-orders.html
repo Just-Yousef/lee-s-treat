@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders - Lee's Treats Admin</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body>
+  <header>
+    <h1>🍽️ Lee's Treats Admin</h1>
+    <div class="header-right">
+      <a href="/admin" class="btn link">Dashboard</a>
+      <a href="/admin/orders" class="btn primary">Orders</a>
+      <a href="/admin/menu" class="btn">Menu</a>
+      <a href="/" class="btn link">Store</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="menu-head">
+      <h2>Orders</h2>
+      <button id="refreshOrdersBtn" class="btn">Refresh</button>
+    </div>
+    <div id="adminOrdersList"></div>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/admin-orders.js"></script>
+</body>
+</html>

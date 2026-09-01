@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lee's Treats - Order Food Online</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+  <div class="brand">
+    <img src="/static/lees_optimized.png" alt="Lee's Treats logo" class="logo">
+    <h1>Lee's Treats</h1>
+  </div>
+  <div id="auth-nav" class="auth-nav"></div>
+  </header>
+
+  <nav id="main-nav" class="main-nav">
+    <a href="/" class="btn link">← Back to Home</a>
+    <button id="homeBtn" class="btn link">Menu</button>
+    <button id="viewOrdersBtn" class="btn link">My Orders</button>
+    <button id="cartBtn" class="btn cart-btn">Cart <span id="cartCount">0</span></button>
+  </nav>
+
+  <nav id="categories"></nav>
+
+  <main>
+    <section id="menu" class="grid"></section>
+
+    <section id="cart" class="hidden">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <div class="cart-nav-buttons">
+        </div>
+      </div>
+      <div id="cartItems"></div>
+      <p id="cartTotal"></p>
+      <div class="checkout-form">
+        <input id="custName" placeholder="Your name" required>
+        <input id="custAddress" placeholder="Delivery address">
+        <input id="custPhone" placeholder="Phone number">
+        <button id="placeOrderBtn" class="btn primary">Place Order</button>
+      </div>
+    </section>
+
+    <section id="orders" class="hidden">
+      <h2>Your Orders</h2>
+      <div id="ordersList"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/auth.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

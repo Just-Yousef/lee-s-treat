@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lee's Treats - Delicious Food, Made for You</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/landing.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <img src="/static/lees_optimized.png" alt="Lee's Treats logo" class="logo">
+      <h1>Lee's Treats</h1>
+    </div>
+    <nav class="landing-nav">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About Us</a>
+      <a href="/login.html" class="nav-link">Login</a>
+      <a href="/register.html" class="nav-link">Sign Up</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h2 class="hero-title">Delicious Food, Made for You</h2>
+        <p class="hero-subtitle">Browse our menu and order your favorite meals for convenient delivery right to your door.</p>
+        <div class="hero-buttons">
+          <a href="/menu" class="btn primary btn-lg">Order Now</a>
+          <button class="btn btn-secondary btn-lg" id="learnMoreBtn">Learn More</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/static/images/pepperoni-pizza.jpg" alt="Delicious food from Lee's Treats">
+      </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" class="about">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>About Lee's Treats</h2>
+          <p>
+            At Lee's Treats, we believe that great food brings people together. Our mission is to serve you the most delicious, freshly prepared meals with a commitment to quality and convenience. Whether you're craving a classic burger, authentic Italian pasta, or a refreshing salad, we've got something for everyone.
+          </p>
+          <p>
+            With our easy-to-use ordering platform, you can browse our full menu, customize your order, and have your favorite meals delivered quickly. We take pride in every dish we prepare.
+          </p>
+          <a href="/menu" class="btn primary">Explore Our Menu</a>
+        </div>
+        <div class="about-image">
+          <img src="/static/images/margherita-pizza.jpg" alt="About Lee's Treats">
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION SECTION -->
+    <section class="cta">
+      <div class="cta-content">
+        <h2>Ready to enjoy something delicious?</h2>
+        <p>Browse our menu and place your order today.</p>
+        <a href="/menu" class="btn primary btn-lg">View Menu</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Lee's Treats</h3>
+        <p>Delicious food, made for you. Order online for quick delivery.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="/menu">Menu</a></li>
+          <li><a href="/login.html">Login</a></li>
+          <li><a href="/register.html">Sign Up</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Lee's Treats. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/landing.js"></script>
+</body>
+</html>

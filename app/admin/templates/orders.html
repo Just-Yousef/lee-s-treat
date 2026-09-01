@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders - Lee's Treats Admin</title>
+  <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="/static/lees_optimized.png" alt="Lee's Treats logo" style="height:32px; width:auto; border-radius:6px;">
+      <h1>Lee's Treats Admin</h1>
+    </div>
+    <div class="header-right">
+      <a href="/" class="btn link">Dashboard</a>
+      <a href="/orders" class="btn primary">Orders</a>
+      <a href="/menu" class="btn">Menu</a>
+      <a href="http://localhost:8000" class="btn link">View Store</a>
+      <button id="logoutBtn" class="btn link">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="menu-head">
+      <h2>Orders</h2>
+      <button id="refreshOrdersBtn" class="btn">Refresh</button>
+    </div>
+    <div id="adminOrdersList"></div>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/admin-orders.js"></script>
+  <script>
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/logout', { method: 'POST' });
+      window.location.href = '/login';
+    });
+  </script>
+</body>
+</html>
