@@ -1,7 +1,8 @@
+import os
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).resolve().parent.parent / "food.db"
+DB_PATH = Path(os.environ.get("DB_PATH", str(Path(__file__).resolve().parent.parent / "food.db")))
 
 
 def get_connection() -> sqlite3.Connection:
@@ -53,6 +54,14 @@ def init_db() -> None:
                 quantity INTEGER NOT NULL,
                 unit_price REAL NOT NULL,
                 FOREIGN KEY (order_id) REFERENCES orders (id)
+            );
+
+
+            CREATE TABLE IF NOT EXISTS tokens (
+                token TEXT PRIMARY KEY,
+                user_id INTEGER NOT NULL,
+                expires_at TEXT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users (id)
             );
 
             CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);

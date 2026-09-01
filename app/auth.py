@@ -37,15 +37,34 @@ def verify_password(password: str, password_hash: str) -> bool:
 
 
 def create_token(user_id: int) -> str:
-    """Create a simple token and store it."""
+    """Create a token and persist it in the database with an expiry."""
     token = secrets.token_urlsafe(32)
-    token_store[token] = user_id
+    expires_at = (datetime.utcnow() + timedelta(hours=TOKEN_EXPIRE_HOURS)).isoformat()
+    with database.get_connection() as conn:
+        conn.execute(
+            "INSERT INTO tokens (token, user_id, expires_at) VALUES (?, ?, ?)",
+            (token, user_id, expires_at),
+        )
     return token
 
 
 def validate_token(token: str) -> Optional[int]:
-    """Validate token and return user_id if valid."""
-    return token_store.get(token)
+    """Validate token and return user_id if valid and not expired."""
+    with database.get_connection() as conn:
+        row = conn.execute(
+            "SELECT user_id, expires_at FROM tokens WHERE token = ?", (token,)
+        ).fetchone()
+
+    if not row:
+        return None
+
+    if datetime.fromisoformat(row["expires_at"]) < datetime.utcnow():
+        # Token expired — clean it up and treat as invalid
+        with database.get_connection() as conn:
+            conn.execute("DELETE FROM tokens WHERE token = ?", (token,))
+        return None
+
+    return row["user_id"]
 
 
 def get_user_by_username(username: str) -> Optional[sqlite3.Row]:
@@ -112,8 +131,7 @@ def get_current_user(
 
 
 def logout_user(token: str) -> bool:
-    """Remove token from store."""
-    if token in token_store:
-        del token_store[token]
-        return True
-    return False
+    """Remove token from the database."""
+    with database.get_connection() as conn:
+        cursor = conn.execute("DELETE FROM tokens WHERE token = ?", (token,))
+    return cursor.rowcount > 0
