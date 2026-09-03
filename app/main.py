@@ -43,6 +43,8 @@ app.mount(
     name="static",
 )
 
+from admin_app import app as admin_app
+app.mount("/admin", admin_app)
 
 @app.get("/", response_class=HTMLResponse)
 def landing():
@@ -64,16 +66,3 @@ def register_page():
     return (BASE_DIR / "templates" / "register.html").read_text()
 
 
-@app.get("/admin", response_class=HTMLResponse)
-def admin_page():
-    return (BASE_DIR / "templates" / "admin.html").read_text()
-
-
-@app.get("/admin/orders", response_class=HTMLResponse)
-def admin_orders_page():
-    return (BASE_DIR / "templates" / "admin-orders.html").read_text()
-
-
-@app.get("/admin/menu", response_class=HTMLResponse)
-def admin_menu_page():
-    return (BASE_DIR / "templates" / "admin-menu.html").read_text()

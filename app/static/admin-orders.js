@@ -26,7 +26,7 @@ function esc(s) {
 }
 
 async function loadOrders() {
-  const orders = await api('/api/orders');
+  const orders = await api('/admin/api/orders');
   if (!orders.length) {
     ordersList.innerHTML = '<p class="empty">No orders yet.</p>';
     return;
@@ -48,7 +48,7 @@ async function loadOrders() {
   ordersList.querySelectorAll('select[data-order]').forEach(sel =>
     sel.addEventListener('change', async () => {
       try {
-        await api(`/api/orders/${sel.dataset.order}`, {
+        await api(`/admin/api/orders/${sel.dataset.order}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ status: sel.value }),

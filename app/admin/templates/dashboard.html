@@ -14,7 +14,7 @@
       <h1>Lee's Treats Admin</h1>
     </div>
     <div style="flex:1; display:flex; justify-content:flex-end; gap:12px;">
-      <a href="http://localhost:8000" class="btn link">View Store</a>
+      <a href="/" class="btn link">View Store</a>
       <button id="logoutBtn" class="btn link">Logout</button>
     </div>
   </header>
@@ -23,13 +23,13 @@
     <h2>Dashboard</h2>
     <p class="subtitle">Choose what you'd like to manage.</p>
     <div class="admin-cards">
-      <a href="/orders" class="admin-card">
+      <a href="/admin/orders" class="admin-card">
         <div class="card-icon">📦</div>
         <h3>Orders</h3>
         <p>View and update customer orders</p>
         <span class="go">Go to Orders →</span>
       </a>
-      <a href="/menu" class="admin-card">
+      <a href="/admin/menu" class="admin-card">
         <div class="card-icon">🍕</div>
         <h3>Menu</h3>
         <p>Add, edit or delete food items</p>
@@ -40,8 +40,8 @@
 
   <script>
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      await fetch('/api/logout', { method: 'POST' });
-      window.location.href = '/login';
+      await fetch('/admin/api/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
     });
   </script>
 </body>

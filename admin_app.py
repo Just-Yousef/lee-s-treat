@@ -9,7 +9,6 @@ import sqlite3
 
 from fastapi import FastAPI, Request, HTTPException, Response
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 
@@ -60,7 +59,7 @@ def is_authenticated(request: Request) -> bool:
 @app.get("/login", response_class=HTMLResponse)
 def login_page(request: Request):
     if is_authenticated(request):
-        return RedirectResponse(url="/")
+        return RedirectResponse(url="/admin/")
     return (APP_DIR / "admin" / "templates" / "login.html").read_text()
 
 
@@ -90,21 +89,21 @@ def logout(response: Response, request: Request):
 @app.get("/", response_class=HTMLResponse)
 def dashboard(request: Request):
     if not is_authenticated(request):
-        return RedirectResponse(url="/login")
+        return RedirectResponse(url="/admin/login")
     return (APP_DIR / "admin" / "templates" / "dashboard.html").read_text()
 
 
 @app.get("/orders", response_class=HTMLResponse)
 def admin_orders(request: Request):
     if not is_authenticated(request):
-        return RedirectResponse(url="/login")
+        return RedirectResponse(url="/admin/login")
     return (APP_DIR / "admin" / "templates" / "orders.html").read_text()
 
 
 @app.get("/menu", response_class=HTMLResponse)
 def admin_menu(request: Request):
     if not is_authenticated(request):
-        return RedirectResponse(url="/login")
+        return RedirectResponse(url="/admin/login")
     return (APP_DIR / "admin" / "templates" / "menu.html").read_text()
 
 
@@ -260,12 +259,6 @@ def delete_item(item_id: int, request: Request):
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 
-# Mount static files
-app.mount(
-    "/static",
-    StaticFiles(directory=APP_DIR / "static"),
-    name="static",
-)
 
 
 if __name__ == "__main__":

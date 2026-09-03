@@ -9,15 +9,7 @@ function toast(msg) {
 }
 
 async function api(path, options = {}) {
-  // Grab the auth token saved by auth.js — adjust the key name if yours differs
-  const token = localStorage.getItem('token');
-
-  const headers = {
-    ...(options.headers || {}),
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-
-  const res = await fetch(path, { ...options, headers });
+  const res = await fetch(path, options);
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -34,7 +26,7 @@ function esc(s) {
 }
 
 async function loadItems() {
-  const items = await api('/api/items');
+  const items = await api('/admin/api/items');
   if (!items.length) {
     itemsList.innerHTML = '<p class="empty">No menu items yet.</p>';
     return;
@@ -61,7 +53,7 @@ async function loadItems() {
     btn.addEventListener('click', async () => {
       if (!confirm('Delete this item?')) return;
       try {
-        await api(`/api/items/${btn.dataset.id}`, { method: 'DELETE' });
+        await api(`/admin/api/items/${btn.dataset.id}`, { method: 'DELETE' });
         toast('Item deleted');
         loadItems();
       } catch (e) {
@@ -94,7 +86,7 @@ async function submitItem(e) {
     image: document.getElementById('f_image').value.trim() || null,
   };
   try {
-    await api(id ? `/api/items/${id}` : '/api/items', {
+    await api(id ? `/admin/api/items/${id}` : '/admin/api/items', {
       method: id ? 'PUT' : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
