@@ -51,6 +51,7 @@ function updateAuthUI() {
 
   nav.querySelectorAll('.auth-btn').forEach(btn => btn.remove());
 
+
   if (auth) {
     const userBtn = document.createElement('button');
     userBtn.className = 'btn link auth-btn';
@@ -127,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setAuth(result.access_token, result.user);
         toast('Welcome back, ' + result.user.username + '!');
-        window.location.href = '/';
+        window.location.href = '/menu';
       } catch (err) {
         toast(err.message);
       }
@@ -160,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setAuth(result.access_token, result.user);
         toast('Account created! Welcome, ' + result.user.username + '!');
-        window.location.href = '/';
+        window.location.href = '/menu';
       } catch (err) {
         toast(err.message);
       }
