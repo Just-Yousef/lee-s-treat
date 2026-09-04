@@ -37,7 +37,7 @@ async function loadItems() {
       <div class="info">
         <h4>${esc(it.name)}</h4>
         <small>${esc(it.category)}${it.description ? ' · ' + esc(it.description) : ''}</small><br>
-        <span class="price">$${it.price.toFixed(2)}</span>
+        <span class="price">₦${it.price.toFixed(2)}</span>
       </div>
       <div class="item-actions">
         <button class="btn edit-btn" data-id="${it.id}">Edit</button>
@@ -55,7 +55,7 @@ async function loadItems() {
       try {
         await api(`/admin/api/items/${btn.dataset.id}`, { method: 'DELETE' });
         toast('Item deleted');
-        loadItems();
+        await loadItems();
       } catch (e) {
         toast(e.message);
       }
@@ -93,7 +93,7 @@ async function submitItem(e) {
     });
     toast(id ? 'Item updated' : 'Item added');
     modal.classList.add('hidden');
-    loadItems();
+    await loadItems();
   } catch (err) {
     toast(err.message);
   }

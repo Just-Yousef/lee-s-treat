@@ -63,7 +63,7 @@ async function loadMenu() {
         <p>${it.description}</p>
 
         <div class="card-footer">
-          <span class="price">$${it.price.toFixed(2)}</span>
+          <span class="price">₦${it.price.toFixed(2)}</span>
           <button class="add-btn" data-id="${it.id}">Add</button>
         </div>
       </div>
@@ -127,24 +127,24 @@ async function renderCart() {
     <div class="cart-breakdown">
       <div class="breakdown-row">
         <span>Subtotal</span>
-        <span>$${subtotal.toFixed(2)}</span>
+        <span>₦${subtotal.toFixed(2)}</span>
       </div>
 
       ${subtotal > 0 ? `
       <div class="breakdown-row">
         <span>Delivery Fee</span>
-        <span>$${deliveryFee.toFixed(2)}</span>
+        <span>₦${deliveryFee.toFixed(2)}</span>
       </div>
       ` : ''}
 
       <div class="breakdown-row">
         <span>Estimated Tax</span>
-        <span>$${tax.toFixed(2)}</span>
+        <span>₦${tax.toFixed(2)}</span>
       </div>
 
       <div class="breakdown-row breakdown-total">
         <span>Final Total</span>
-        <span>$${total.toFixed(2)}</span>
+        <span>₦${total.toFixed(2)}</span>
       </div>
     </div>
   `;
@@ -216,7 +216,7 @@ async function renderCart() {
   });
 
   document.getElementById('cartTotal').textContent =
-    `Total: $${total.toFixed(2)}`;
+    `Total: ₦${total.toFixed(2)}`;
 
   cartEl.querySelectorAll('.remove-btn').forEach(btn =>
     btn.addEventListener('click', e => {
@@ -350,7 +350,7 @@ async function loadOrders() {
         </div>
 
         <div class="total">
-          Total: $${o.total.toFixed(2)}
+          Total: ₦${o.total.toFixed(2)}
         </div>
       </div>
     `).join('');

@@ -35,8 +35,8 @@ async function loadOrders() {
     <div class="order-card">
       <div class="meta"><span>Order #${o.id} · ${o.created_at}</span><span class="badge">${o.status}</span></div>
       <div class="customer">${esc(o.customer_name)}${o.address ? ' · ' + esc(o.address) : ''}${o.phone ? ' · ' + esc(o.phone) : ''}</div>
-      <div class="lines">${o.items.map(i => `${esc(i.item_name)} × ${i.quantity} — $${i.unit_price.toFixed(2)}`).join('<br>')}</div>
-      <div class="total">Total: $${o.total.toFixed(2)}</div>
+      <div class="lines">${o.items.map(i => `${esc(i.item_name)} × ${i.quantity} — ₦${i.unit_price.toFixed(2)}`).join('<br>')}</div>
+      <div class="total">Total: ₦${o.total.toFixed(2)}</div>
       <div class="status-select">
         <select data-order="${o.id}">
           ${STATUSES.map(s => `<option value="${s}" ${s === o.status ? 'selected' : ''}>${s}</option>`).join('')}
