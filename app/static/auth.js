@@ -30,12 +30,14 @@ function setAuth(token, user) {
   localStorage.setItem('auth_token', token);
   localStorage.setItem('auth_user', JSON.stringify(user));
   updateAuthUI();
+  window.dispatchEvent(new Event('authchange'));
 }
 
 function clearAuth() {
   localStorage.removeItem('auth_token');
   localStorage.removeItem('auth_user');
   updateAuthUI();
+  window.dispatchEvent(new Event('authchange'));
 }
 
 function getAuth() {

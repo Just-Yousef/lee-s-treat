@@ -6,6 +6,38 @@ const cartEl = document.getElementById('cart');
 const ordersEl = document.getElementById('orders');
 const categoriesEl = document.getElementById('categories');
 
+function saveCart() {
+  localStorage.setItem(getCartStorageKey(), JSON.stringify(cartState));
+}
+
+function getCartStorageKey() {
+  const auth = getAuth();
+  return auth
+    ? `lees_treats_cart_user_${auth.user.id}`
+    : 'lees_treats_cart_guest';
+}
+
+function restoreCart() {
+  try {
+    const savedCart = JSON.parse(localStorage.getItem(getCartStorageKey()) || '{}');
+    Object.entries(savedCart).forEach(([itemId, quantity]) => {
+      const parsedQuantity = Number(quantity);
+      if (Number.isInteger(parsedQuantity) && parsedQuantity > 0) {
+        cartState[itemId] = parsedQuantity;
+      }
+    });
+  } catch {
+    localStorage.removeItem(getCartStorageKey());
+  }
+}
+
+async function switchCartForCurrentUser() {
+  Object.keys(cartState).forEach(itemId => delete cartState[itemId]);
+  restoreCart();
+  updateCartCount();
+  await renderCart();
+}
+
 // Use shared auth functions
 const { api, toast, getAuth, updateAuthUI } = window.authApi || {
   api: async function(path, options = {}) {
@@ -79,6 +111,7 @@ async function loadMenu() {
 
 function addToCart(itemId) {
   cartState[itemId] = (cartState[itemId] || 0) + 1;
+  saveCart();
 
   updateCartCount();
   renderCart();
@@ -209,6 +242,7 @@ async function renderCart() {
       );
 
       cartState[e.target.dataset.id] = newQty;
+      saveCart();
 
       updateCartCount();
       renderCart();
@@ -246,6 +280,7 @@ function changeQty(id, delta) {
 
 function removeFromCart(id) {
   delete cartState[id];
+  saveCart();
 
   updateCartCount();
   renderCart();
@@ -258,6 +293,7 @@ function clearCart() {
     Object.keys(cartState).forEach(k =>
       delete cartState[k]
     );
+    saveCart();
 
     updateCartCount();
     renderCart();
@@ -304,6 +340,7 @@ async function placeOrder() {
   Object.keys(cartState).forEach(k =>
     delete cartState[k]
   );
+  saveCart();
 
   updateCartCount();
   renderCart();
@@ -438,6 +475,8 @@ document
     placeOrder
   );
 
+window.addEventListener('authchange', switchCartForCurrentUser);
+
 setTimeout(() => {
   const backBtn =
     document.getElementById('backToMenuBtn');
@@ -451,6 +490,9 @@ setTimeout(() => {
 }, 0);
 
 (async function init() {
+  restoreCart();
+  updateCartCount();
   await loadCategories();
   await loadMenu();
+  await renderCart();
 })();
