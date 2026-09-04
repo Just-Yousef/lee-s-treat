@@ -56,7 +56,7 @@ async function loadMenu() {
 
   menuEl.innerHTML = items.map(it => `
     <div class="card">
-      <img src="${it.image}" alt="${it.name}" loading="lazy">
+      <img src="${it.image}" alt="${it.name}" loading="lazy" decoding="async">
 
       <div class="card-body">
         <h3>${it.name}</h3>

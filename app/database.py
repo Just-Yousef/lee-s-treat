@@ -74,20 +74,39 @@ def seed_items() -> None:
     with get_connection() as conn:
         count = conn.execute("SELECT COUNT(*) FROM items").fetchone()[0]
         if count:
+            local_images = {
+                "Margherita Pizza": "/static/images/margherita-pizza.jpg",
+                "Pepperoni Pizza": "/static/images/pepperoni-pizza.jpg",
+                "Cheeseburger": "/static/images/cheeseburger.jpg",
+                "Double Bacon Burger": "/static/images/double-bacon-burger.jpg",
+                "Chicken Salad": "/static/images/chicken-salad.jpg",
+                "Caesar Salad": "/static/images/caesar-salad.jpg",
+                "Spaghetti Bolognese": "/static/images/spaghetti-bolognese.jpg",
+                "Penne Arrabbiata": "/static/images/penne-arrabbiata.jpg",
+                "Chocolate Lava Cake": "/static/images/chocolate-lava-cake.jpg",
+                "Cheesecake": "/static/images/cheesecake.jpg",
+                "Orange Juice": "/static/images/orange-juice.jpg",
+                "Sparkling Water": "/static/images/sparkling-water.jpg",
+            }
+            for name, image in local_images.items():
+                conn.execute(
+                    "UPDATE items SET image = ? WHERE name = ? AND image LIKE 'https://images.unsplash.com/%'",
+                    (image, name),
+                )
             return
         items = [
-            ("Margherita Pizza", "Classic tomato, mozzarella and basil", 9.99, "Pizza", "https://images.unsplash.com/photo-1513104890138-7c749659a591?"),
-            ("Pepperoni Pizza", "Pepperoni, mozzarella and tomato sauce", 12.49, "Pizza", "https://images.unsplash.com/photo-1628840042765-356cda07504e?"),
-            ("Cheeseburger", "Beef patty, cheddar cheese, lettuce and tomato", 8.79, "Burgers", "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?"),
-            ("Double Bacon Burger", "Double beef, crispy bacon and BBQ sauce", 11.99, "Burgers", "https://images.unsplash.com/photo-1553979459-d2229ba7433b?"),
-            ("Chicken Salad", "Grilled chicken, fresh greens and vinaigrette", 10.49, "Salads", "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?"),
-            ("Caesar Salad", "Romaine, croutons, parmesan and caesar dressing", 9.29, "Salads", "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?"),
-            ("Spaghetti Bolognese", "Pasta with slow-cooked beef ragu", 11.49, "Pasta", "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?"),
-            ("Penne Arrabbiata", "Pasta in spicy tomato and garlic sauce", 9.99, "Pasta", "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?"),
-            ("Chocolate Lava Cake", "Warm, gooey chocolate cake with vanilla ice cream", 6.49, "Desserts", "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?"),
-            ("Cheesecake", "Creamy cheesecake with berry topping", 5.99, "Desserts", "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?"),
-            ("Orange Juice", "Freshly squeezed orange juice", 3.49, "Drinks", "https://images.unsplash.com/photo-1600271886742-f049cd451bba?"),
-            ("Sparkling Water", "Chilled sparkling mineral water", 2.29, "Drinks", "https://images.unsplash.com/photo-1581006852262-e4307cf6283a?"),
+            ("Margherita Pizza", "Classic tomato, mozzarella and basil", 9.99, "Pizza", "/static/images/margherita-pizza.jpg"),
+            ("Pepperoni Pizza", "Pepperoni, mozzarella and tomato sauce", 12.49, "Pizza", "/static/images/pepperoni-pizza.jpg"),
+            ("Cheeseburger", "Beef patty, cheddar cheese, lettuce and tomato", 8.79, "Burgers", "/static/images/cheeseburger.jpg"),
+            ("Double Bacon Burger", "Double beef, crispy bacon and BBQ sauce", 11.99, "Burgers", "/static/images/double-bacon-burger.jpg"),
+            ("Chicken Salad", "Grilled chicken, fresh greens and vinaigrette", 10.49, "Salads", "/static/images/chicken-salad.jpg"),
+            ("Caesar Salad", "Romaine, croutons, parmesan and caesar dressing", 9.29, "Salads", "/static/images/caesar-salad.jpg"),
+            ("Spaghetti Bolognese", "Pasta with slow-cooked beef ragu", 11.49, "Pasta", "/static/images/spaghetti-bolognese.jpg"),
+            ("Penne Arrabbiata", "Pasta in spicy tomato and garlic sauce", 9.99, "Pasta", "/static/images/penne-arrabbiata.jpg"),
+            ("Chocolate Lava Cake", "Warm, gooey chocolate cake with vanilla ice cream", 6.49, "Desserts", "/static/images/chocolate-lava-cake.jpg"),
+            ("Cheesecake", "Creamy cheesecake with berry topping", 5.99, "Desserts", "/static/images/cheesecake.jpg"),
+            ("Orange Juice", "Freshly squeezed orange juice", 3.49, "Drinks", "/static/images/orange-juice.jpg"),
+            ("Sparkling Water", "Chilled sparkling mineral water", 2.29, "Drinks", "/static/images/sparkling-water.jpg"),
         ]
         conn.executemany(
             "INSERT INTO items (name, description, price, category, image) VALUES (?, ?, ?, ?, ?)",

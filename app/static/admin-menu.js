@@ -33,7 +33,7 @@ async function loadItems() {
   }
   itemsList.innerHTML = items.map(it => `
     <div class="admin-item">
-      <img src="${esc(it.image || '')}" alt="${esc(it.name)}">
+      <img src="${esc(it.image || '')}" alt="${esc(it.name)}" loading="lazy" decoding="async">
       <div class="info">
         <h4>${esc(it.name)}</h4>
         <small>${esc(it.category)}${it.description ? ' · ' + esc(it.description) : ''}</small><br>
